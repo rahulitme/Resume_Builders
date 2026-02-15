@@ -24,7 +24,7 @@ def create_sample_resume(filename, name, title):
     )
     
     story.append(Paragraph(name, title_style))
-    story.append(Paragraph("Senior Software Engineer | Python Developer", styles['Normal']))
+    story.append(Paragraph(title, styles['Normal']))
     story.append(Spacer(1, 0.3*inch))
     
     # Contact

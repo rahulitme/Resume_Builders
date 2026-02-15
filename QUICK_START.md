@@ -18,6 +18,22 @@ python -c "import pdfplumber, pypdf; print('✓ Ready!')"
 
 ---
 
+## Optional: Run Backend API
+
+If you want a separate backend service (full-stack mode), start the API:
+
+```bash
+python -m uvicorn backend_api:app --reload --port 8000
+```
+
+Then point the Streamlit UI to it:
+
+```bash
+set RESUME_API_URL=http://localhost:8000
+```
+
+---
+
 ## Step 2: Prepare Your Resumes (1 minute)
 
 ```bash
