@@ -1,0 +1,34 @@
+
+======================================================================
+BATCH RESUME PROCESSING REPORT
+======================================================================
+
+Processing Summary:
+  Start Time: 2026-02-13T01:45:48.994064
+  End Time: 2026-02-13T01:45:49.218643
+  Total Resumes: 5
+
+Results:
+  Successfully Processed: 5
+  Failed: 0
+  Success Rate: 100%
+
+Processed Resumes:
+
+  ✓ resume_1.pdf
+    - Edits Applied: 3
+    - Output: D:\python_project\output_resumes\edited_resume_1.pdf
+  ✓ resume_2.pdf
+    - Edits Applied: 3
+    - Output: D:\python_project\output_resumes\edited_resume_2.pdf
+  ✓ resume_3.pdf
+    - Edits Applied: 3
+    - Output: D:\python_project\output_resumes\edited_resume_3.pdf
+  ✓ resume_4.pdf
+    - Edits Applied: 3
+    - Output: D:\python_project\output_resumes\edited_resume_4.pdf
+  ✓ resume_5.pdf
+    - Edits Applied: 3
+    - Output: D:\python_project\output_resumes\edited_resume_5.pdf
+
+======================================================================

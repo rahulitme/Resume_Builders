@@ -1,0 +1,38 @@
+{
+  "start_time": "2026-02-13T01:45:48.994064",
+  "total_resumes": 5,
+  "processed": [
+    {
+      "file": "resume_1.pdf",
+      "edits_applied": 3,
+      "output": "D:\\python_project\\output_resumes\\edited_resume_1.pdf"
+    },
+    {
+      "file": "resume_2.pdf",
+      "edits_applied": 3,
+      "output": "D:\\python_project\\output_resumes\\edited_resume_2.pdf"
+    },
+    {
+      "file": "resume_3.pdf",
+      "edits_applied": 3,
+      "output": "D:\\python_project\\output_resumes\\edited_resume_3.pdf"
+    },
+    {
+      "file": "resume_4.pdf",
+      "edits_applied": 3,
+      "output": "D:\\python_project\\output_resumes\\edited_resume_4.pdf"
+    },
+    {
+      "file": "resume_5.pdf",
+      "edits_applied": 3,
+      "output": "D:\\python_project\\output_resumes\\edited_resume_5.pdf"
+    }
+  ],
+  "failed": [],
+  "summary": {
+    "successful": 5,
+    "failed": 0,
+    "success_rate": "100%"
+  },
+  "end_time": "2026-02-13T01:45:49.218643"
+}
