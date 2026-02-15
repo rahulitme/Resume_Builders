@@ -205,23 +205,287 @@ def _refresh_pdf_bytes_if_needed(
 # Page configuration
 st.set_page_config(
     page_title="Resume Editor",
-    page_icon="📄",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# Custom styling
-st.markdown("""
+# Modern styling with professional design
+st.markdown(
+    """
     <style>
-    .main {
-        max-width: 1200px;
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
     }
+
+    :root {
+        --primary: #0f766e;
+        --primary-light: #14b8a6;
+        --secondary: #d946a6;
+        --accent: #2563eb;
+        --success: #10b981;
+        --error: #ef4444;
+        --warning: #f59e0b;
+        --text-primary: #0f172a;
+        --text-secondary: #4b5563;
+        --text-muted: #9ca3af;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-tertiary: #eef2ff;
+        --border: #e2e8f0;
+    }
+
+    html, body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-primary);
+        background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 50%, #fef3c7 100%);
+        min-height: 100vh;
+    }
+
+    .stApp {
+        background: transparent;
+    }
+
+    .main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+        font-family: 'Fraunces', serif;
+        letter-spacing: -0.01em;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+    }
+
+    h2 {
+        font-size: 1.875rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 1.5rem 0 1rem;
+    }
+
+    h3 {
+        font-size: 1.375rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin: 1rem 0 0.75rem;
+    }
+
+    h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    p, .stMarkdown {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero h1 {
+        margin-bottom: 0.75rem;
+    }
+
+    .hero p {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        margin: 0;
+    }
+
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0.5rem;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        padding: 0.6rem 1.25rem;
+        color: var(--text-secondary);
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .stTabs [aria-selected="true"] {
+        color: white !important;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        border-color: var(--primary);
+        box-shadow: 0 8px 16px rgba(15, 118, 110, 0.2);
+    }
+
+    /* Buttons */
     .stButton>button {
-        width: 100%;
-        padding: 10px;
+        height: 2.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        transition: all 0.3s ease;
+        letter-spacing: 0.3px;
+    }
+
+    .stButton>button:hover {
+        border-color: var(--primary);
+        background: var(--bg-secondary);
+        box-shadow: 0 6px 12px rgba(15, 118, 110, 0.15);
+    }
+
+    .stButton>button:focus {
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2);
+    }
+
+    button[kind="primary"] {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    button[kind="primary"]:hover {
+        box-shadow: 0 8px 20px rgba(15, 118, 110, 0.3) !important;
+    }
+
+    /* File Uploader */
+    .stFileUploader {
+        border-radius: 12px;
+    }
+
+    .stFileUploader section {
+        padding: 1.5rem;
+        border: 2px dashed var(--border);
+        border-radius: 12px;
+        background: var(--bg-secondary);
+    }
+
+    /* Cards & Containers */
+    .card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Alerts */
+    .stAlert {
+        border-radius: 12px;
+        border-left: 4px solid;
+        padding: 1rem 1.25rem !important;
+        margin-bottom: 1rem;
+    }
+
+    [data-testid="stAlertContainer"] > div {
+        padding: 1rem 1.25rem;
+        border-radius: 12px;
+    }
+
+    /* Expanders */
+    .stExpander {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .stExpander > summary {
+        font-weight: 600;
+        color: var(--text-primary);
+        padding: 1rem;
+    }
+
+    /* Input Fields */
+    .stTextInput, .stTextArea, .stSelectbox {
+        border-radius: 8px;
+    }
+
+    input, textarea, select {
+        border: 1px solid var(--border) !important;
+        border-radius: 8px !important;
+        padding: 0.75rem !important;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1) !important;
+    }
+
+    /* Divider */
+    .stDivider {
+        margin: 1.5rem 0;
+    }
+
+    /* Caption & Help Text */
+    .stCaption, .stHelp {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    /* Code */
+    code {
+        background: var(--bg-secondary);
+        color: var(--primary);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-weight: 500;
+    }
+
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        display: none !important;
+    }
+
+    [data-testid="stSidebar"] h2 {
+        margin-top: 0;
+    }
+
+    .sidebar-content {
+        background: var(--bg-primary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Spacing utilities */
+    .spacer {
+        margin-bottom: 1.5rem;
     }
     </style>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+)
 
 # Initialize session state
 if 'uploaded_files' not in st.session_state:
@@ -259,81 +523,89 @@ if "pdf_version" not in st.session_state:
     st.session_state.pdf_version = 0
 
 # Page header
-st.title("📄 Resume Editor - Upload & Update")
-st.markdown("### Automatically update your resumes while preserving layout and formatting")
+st.markdown(
+    """
+    <div class="hero">
+        <h1>Resume Studio</h1>
+        <p>Effortlessly update and perfect your resume while preserving your original formatting</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown("---")
 
 # Create tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📤 Upload", "⚙️ Configure Edits", "📥 Download", "📋 Templates"])
+tab1, tab2, tab3, tab4 = st.tabs(["📄 Upload", "✏️ Customize", "⬇️ Download", "📚 Templates"])
 
 # ==================== TAB 1: UPLOAD ====================
 with tab1:
-    st.header("Step 1: Upload Your Resumes")
-    
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([1, 1])
     
     with col1:
-        uploaded_pdfs = st.file_uploader(
-            "Choose PDF resume files",
-            type="pdf",
-            accept_multiple_files=True,
-            help="Select one or multiple resume PDFs to edit"
-        )
+        st.markdown("### Your Resume Files")
+        st.markdown("Upload one or multiple PDF resumes to get started.")
     
     with col2:
-        st.info(f"📊 {len(uploaded_pdfs) if uploaded_pdfs else 0} file(s) selected")
+        if st.session_state.uploaded_files:
+            st.metric("Files Ready", len(st.session_state.uploaded_files))
+    
+    st.markdown("")
+    
+    uploaded_pdfs = st.file_uploader(
+        "Select PDF resume files",
+        type="pdf",
+        accept_multiple_files=True,
+        help="Upload one or more resume PDFs. All files are processed locally."
+    )
     
     if uploaded_pdfs:
         st.session_state.uploaded_files = uploaded_pdfs
         
-        st.subheader("Uploaded Files:")
+        st.success(f"✓ {len(uploaded_pdfs)} file(s) uploaded successfully")
+        st.markdown("---")
+        st.markdown("**Files ready to customize:**")
+        
         for idx, file in enumerate(uploaded_pdfs, 1):
-            col1, col2 = st.columns([4, 1])
+            col1, col2, col3 = st.columns([3, 1, 1])
             with col1:
-                st.write(f"✅ {idx}. {file.name} ({file.size / 1024:.2f} KB)")
+                st.caption(f"{idx}. {file.name}")
             with col2:
-                st.write(f"")
+                st.caption(f"{file.size / 1024:.1f} KB")
+            with col3:
+                st.caption("✓ Ready")
     else:
-        st.warning("⬆️ Please upload at least one PDF resume")
+        st.info("👈 **Get started** by uploading your first resume above")
 
 # ==================== TAB 2: CONFIGURE EDITS ====================
 with tab2:
-    st.header("Step 2: Configure Edits (Optional)")
-
-    st.markdown("""
-After you upload your resume, all editable sections detected from the document
-will automatically appear below. You can review and edit any section as needed
-while keeping the original layout and formatting intact.
-
-Available sections may include (based on your resume):
-- Personal Information
-- Professional Summary
-- Work Experience
-- Education
-- Skills
-- Projects
-- Certifications
-- Achievements
-- Additional Sections (Languages, Interests, etc.)
-""")
+    st.markdown("### Customize Your Resume")
+    st.markdown(
+        "Review detected sections, set your preferences, and customize any content. "
+        "Your original formatting stays intact."
+    )
+    
+    st.markdown("")
 
     if not st.session_state.uploaded_files:
-        st.warning("⬆️ Please upload resumes in Tab 1 first")
+        st.info("📤 Please upload resumes in the **Upload** tab first")
     else:
-        update_button = st.button(
-            "Update Detected Sections",
-            use_container_width=True,
-            type="primary",
-            key="update_detected_sections",
-        )
-
-        if update_button:
-            st.session_state.show_detected_sections = True
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            if st.button(
+                "Analyze & Detect Sections",
+                use_container_width=True,
+                type="primary",
+                key="update_detected_sections",
+            ):
+                st.session_state.show_detected_sections = True
 
         if not st.session_state.show_detected_sections:
-            st.info("Click 'Update Detected Sections' to analyze your resume.")
+            st.info("👆 Click the button above to analyze your resumes")
             st.stop()
 
-        st.subheader("Detected Sections")
+        st.markdown("---")
+        st.markdown("### Detected Sections")
 
         st.session_state.file_signatures = {}
 
@@ -347,7 +619,7 @@ Available sections may include (based on your resume):
                     try:
                         section_data = _backend_extract_sections(file_bytes, file.name)
                     except requests.RequestException as exc:
-                        st.error(f"❌ Backend extract failed for {file.name}: {exc}")
+                        st.error(f"Could not analyze {file.name}: {exc}")
                         section_data = _extract_sections(file_bytes)
                         detected = _detect_sections(_extract_pdf_lines(file_bytes))
                         section_data["sections"] = detected["sections"]
@@ -375,31 +647,30 @@ Available sections may include (based on your resume):
                             )
                 else:
                     st.markdown("- No sections detected. You can still target headings manually.")
-
                 if other_headings:
-                    st.markdown("**Other headings detected:**")
+                    st.markdown("**Other sections found:**")
                     for heading in other_headings:
                         st.markdown(f"- {heading}")
 
-        st.subheader("Available Edit Options")
+        st.markdown("---")
+        st.markdown("### Customization Options")
 
         available_sections = set()
         for cached in st.session_state.section_cache.values():
             available_sections.update(cached["sections"].keys())
 
-        if not available_sections:
-            st.markdown("- Update section text (manual target)")
-        else:
+        if available_sections:
+            st.markdown("**Update these sections:**")
             for section_name in sorted(available_sections):
-                options = SECTION_OPTIONS.get(section_name, ["Update section text"])
-                st.markdown(f"**{section_name}**")
-                for option in options:
-                    st.markdown(f"- {option}")
+                st.markdown(f"• {section_name}")
+        
+        st.markdown("---")
+        st.markdown("### Quick Add/Modify")
 
-        st.subheader("Custom Edits")
+        st.markdown("Configure common changes below:")
 
         use_custom_edits = st.checkbox(
-            "Use these custom edits for processing",
+            "Enable quick edits",
             value=True,
             key="use_custom_edits",
         )
@@ -408,51 +679,52 @@ Available sections may include (based on your resume):
 
         with col1:
             if "Experience" in available_sections:
-                st.markdown("**Add Experience**")
-                add_exp = st.checkbox("Add new job experience?", value=True, key="custom_add_exp")
+                st.markdown("**Experience**")
+                add_exp = st.checkbox("Add new entry", value=True, key="custom_add_exp")
                 if add_exp:
-                    exp_title = st.text_input("Job Title", "Senior Developer", key="custom_exp_title")
+                    exp_title = st.text_input("Title", "Senior Developer", key="custom_exp_title")
                     exp_company = st.text_input("Company", "Tech Corp", key="custom_exp_company")
-                    exp_date = st.text_input("Date Range", "2024 - Present", key="custom_exp_date")
+                    exp_date = st.text_input("Dates", "2024 - Present", key="custom_exp_date")
                     exp_achievements = st.text_area(
-                        "Achievements (one per line)",
-                        "Led development of key features",
+                        "Achievements",
+                        "Led development",
                         key="custom_exp_achievements",
+                        height=80,
                     )
             else:
-                st.markdown("**Add Experience**")
-                st.caption("No experience section detected in uploaded resume.")
+                st.markdown("**Experience**")
+                st.caption("Not detected")
 
         with col2:
             if "Skills" in available_sections:
-                st.markdown("**Modify Skills**")
+                st.markdown("**Skills**")
                 skill_action = st.selectbox(
-                    "Skill action",
+                    "Action",
                     ["Add skill", "Modify skill", "Remove skill"],
                     key="custom_skill_action",
                 )
                 if skill_action == "Add skill":
-                    st.text_input("New Skill", "Advanced Python", key="custom_skill_add")
+                    st.text_input("Skill", "Python", key="custom_skill_add")
                 elif skill_action == "Modify skill":
-                    st.text_input("Existing Skill", "Python", key="custom_skill_original")
-                    st.text_input("New Skill", "Advanced Python", key="custom_skill_new")
+                    st.text_input("Current", "Python", key="custom_skill_original")
+                    st.text_input("New", "Python (Advanced)", key="custom_skill_new")
                 else:
-                    st.text_input("Skill to Remove", "Python", key="custom_skill_remove")
+                    st.text_input("Remove", "Python", key="custom_skill_remove")
             else:
-                st.markdown("**Modify Skills**")
-                st.caption("No skills section detected in uploaded resume.")
+                st.markdown("**Skills**")
+                st.caption("Not detected")
 
         with col3:
             if "Certifications" in available_sections:
-                st.markdown("**Add Certification**")
-                add_cert = st.checkbox("Add certification?", value=True, key="custom_add_cert")
+                st.markdown("**Certifications**")
+                add_cert = st.checkbox("Add certification", value=True, key="custom_add_cert")
                 if add_cert:
-                    st.text_input("Certification Name", "AWS Solutions Architect", key="custom_cert_name")
-                    st.text_input("Issuer", "Amazon Web Services", key="custom_cert_issuer")
-                    st.text_input("Date Obtained", "Dec 2023", key="custom_cert_date")
+                    st.text_input("Name", "AWS Architect", key="custom_cert_name")
+                    st.text_input("Issuer", "AWS", key="custom_cert_issuer")
+                    st.text_input("Date", "Dec 2023", key="custom_cert_date")
             else:
-                st.markdown("**Add Certification**")
-                st.caption("No certifications section detected in uploaded resume.")
+                st.markdown("**Certifications**")
+                st.caption("Not detected")
 
         st.session_state.custom_inputs = {
             "use_custom_edits": use_custom_edits,
@@ -472,12 +744,14 @@ Available sections may include (based on your resume):
             "cert_date": st.session_state.get("custom_cert_date", ""),
         }
 
-        st.subheader("Edit Any Section")
+        st.markdown("---")
+        st.markdown("### Edit Sections")
+        st.markdown("Fine-tune any section in your resume. Changes are optional.")
 
         if not st.session_state.section_cache:
-            st.caption("No headings detected in uploaded resumes.")
+            st.info("No sections detected yet.")
         else:
-            st.caption("Edit any section below. Leave a section unchanged to keep it as-is.")
+            st.caption("Modify any section below. Unchanged sections stay as-is.")
 
         for file in st.session_state.uploaded_files:
             file_signature = st.session_state.file_signatures.get(file.name)
@@ -489,7 +763,7 @@ Available sections may include (based on your resume):
                 continue
 
             updates_for_file = {}
-            with st.expander(f"📝 Edit sections for {file.name}", expanded=False):
+            with st.expander(f"Edit {file.name}", expanded=False):
                 for entry in section_entries:
                     heading = entry["heading"]
                     display = entry["display"]
@@ -498,16 +772,16 @@ Available sections may include (based on your resume):
 
                     col1, col2 = st.columns([4, 1])
                     with col1:
-                        st.markdown(f"### {display}")
+                        st.markdown(f"**{display}**")
                     with col2:
-                        st.caption(f"({len(original_text)} chars)")
+                        st.caption(f"{len(original_text)} chars")
 
                     new_text = st.text_area(
-                        f"Edit {display}",
+                        f"Update {display}",
                         value=st.session_state.get(key, original_text),
                         key=key,
-                        height=120,
-                        help="Modify the content for this section or leave unchanged.",
+                        height=100,
+                        help="Edit this section or leave it unchanged.",
                     )
 
                     if new_text.strip() and new_text.strip() != original_text.strip():
@@ -517,18 +791,19 @@ Available sections may include (based on your resume):
 
             if updates_for_file:
                 st.session_state.section_updates[file_signature] = updates_for_file
-                st.success(f"✅ {len(updates_for_file)} section(s) marked for update")
+                st.success(f"✓ {len(updates_for_file)} section(s) updated")
             else:
                 st.session_state.section_updates.pop(file_signature, None)
 
-        st.info("Tip: Use the detected sections above to decide which edits apply.")
+        st.info("💡 Tip: Make sure your edits are accurate before generating")
 
 # ==================== TAB 3: PROCESS & DOWNLOAD ====================
 with tab3:
-    st.header("Step 3: Process & Download")
+    st.markdown("### Generate & Download")
+    st.markdown("Apply your customizations and download your updated resumes.")
     
     if not st.session_state.uploaded_files:
-        st.warning("⬆️ Please upload resumes in Tab 1 first")
+        st.info("📤 Please upload resumes in the **Upload** tab first")
     else:
         # Ensure file_signatures are initialized
         if not st.session_state.file_signatures:
@@ -547,7 +822,7 @@ with tab3:
                         try:
                             section_data = _backend_extract_sections(file_bytes, file.name)
                         except requests.RequestException as exc:
-                            st.error(f"❌ Backend extract failed for {file.name}: {exc}")
+                            st.error(f"Could not analyze {file.name}: {exc}")
                             section_data = _extract_sections(file_bytes)
                             detected = _detect_sections(_extract_pdf_lines(file_bytes))
                             section_data["sections"] = detected["sections"]
@@ -566,17 +841,14 @@ with tab3:
             ResumeEditConfig.RESUME_5_EDITS,
         ]
         
-        col1, col2 = st.columns(2)
+        st.markdown("")
         
-        with col1:
-            process_button = st.button(
-                "🚀 Process Resumes",
-                use_container_width=True,
-                type="primary"
-            )
-        
-        with col2:
-            st.write("")  # Spacing
+        process_button = st.button(
+            "Generate Updated Resumes",
+            use_container_width=True,
+            type="primary",
+            key="process_button"
+        )
         
         if process_button:
             # Create temp directories
@@ -585,9 +857,9 @@ with tab3:
             input_dir.mkdir(exist_ok=True)
             output_dir.mkdir(exist_ok=True)
             
-            st.info("⏳ Processing your resumes...")
-            progress_bar = st.progress(0)
-            status_text = st.empty()
+            st.markdown("---")
+            progress_placeholder = st.empty()
+            status_placeholder = st.empty()
             
             # Save uploaded files
             saved_files = []
@@ -595,7 +867,6 @@ with tab3:
                 file_path = input_dir / uploaded_file.name
                 file_path.write_bytes(uploaded_file.getbuffer())
                 saved_files.append(file_path)
-                progress_bar.progress((idx + 1) / (len(st.session_state.uploaded_files) + 1))
             
             try:
                 # Process each file
@@ -603,7 +874,9 @@ with tab3:
                 processed_results = []
                 
                 for idx, file_path in enumerate(saved_files):
-                    status_text.write(f"Processing: {file_path.name}")
+                    progress = (idx + 1) / len(saved_files)
+                    progress_placeholder.progress(progress)
+                    status_placeholder.info(f"Processing: {file_path.name}")
 
                     custom_inputs = st.session_state.get("custom_inputs", {})
                     uploaded_file = st.session_state.uploaded_files[idx]
@@ -683,19 +956,18 @@ with tab3:
                         'status': 'success',
                         'file_bytes': pdf_bytes,
                     })
-                    
-                    progress_bar.progress((idx + 2) / (len(saved_files) + 1))
                 
                 st.session_state.processed_files = processed_results
-                status_text.success("✅ All resumes processed successfully!")
-                progress_bar.progress(1.0)
+                progress_placeholder.empty()
+                status_placeholder.success("✓ All resumes generated successfully!")
                 
             except Exception as e:
-                st.error(f"❌ Error processing resumes: {str(e)}")
+                st.error(f"Error processing resumes: {str(e)}")
         
         # Show download buttons
         if st.session_state.processed_files:
-            st.subheader("📥 Download Edited Resumes")
+            st.markdown("---")
+            st.markdown("### Ready to Download")
             upload_index = {
                 file.name: idx
                 for idx, file in enumerate(st.session_state.uploaded_files)
@@ -845,8 +1117,8 @@ with tab3:
 
 # ==================== TAB 4: TEMPLATES ====================
 with tab4:
-    st.header("📋 Download Resume Templates")
-    st.markdown("### Choose a template to use as your base resume")
+    st.markdown("### Resume Templates")
+    st.markdown("Choose a professionally-designed template to use as your starting point.")
     
     # Templates directory
     templates_dir = Path("templates")
@@ -854,14 +1126,15 @@ with tab4:
     
     # Define 5 templates
     templates = [
-        {"num": 1, "name": "template_1.pdf", "description": "Modern Fashion Designer"},
-        {"num": 2, "name": "template_2.pdf", "description": "Professional Corporate"},
-        {"num": 3, "name": "template_3.pdf", "description": "Creative Portfolio"},
-        {"num": 4, "name": "template_4.pdf", "description": "Executive Resume"},
-        {"num": 5, "name": "template_5.pdf", "description": "Tech Industry"},
+        {"num": 1, "name": "template_1.pdf", "description": "Creative - Fashion"},
+        {"num": 2, "name": "template_2.pdf", "description": "Classic - Corporate"},
+        {"num": 3, "name": "template_3.pdf", "description": "Modern - Portfolio"},
+        {"num": 4, "name": "template_4.pdf", "description": "Executive - Leadership"},
+        {"num": 5, "name": "template_5.pdf", "description": "Tech - Software"},
     ]
     
-    st.subheader("Available Templates:")
+    st.markdown("")
+    st.markdown("**Available Templates:**")
     
     # Create 2 columns for template buttons
     col1, col2 = st.columns(2)
@@ -882,7 +1155,7 @@ with tab4:
                     template_data = f.read()
                 
                 st.download_button(
-                    label=f"📥 Template {template['num']}: {template['description']}",
+                    label=f"Template {template['num']}: {template['description']}",
                     data=template_data,
                     file_name=template["name"],
                     mime="application/pdf",
@@ -891,37 +1164,36 @@ with tab4:
                 
                 # Show file info
                 file_size = template_path.stat().st_size / 1024
-                st.caption(f"✅ Available | Size: {file_size:.2f} KB")
+                st.caption(f"✓ Ready · {file_size:.1f} KB")
             else:
                 st.button(
-                    label=f"📋 Template {template['num']}: {template['description']}",
+                    label=f"Template {template['num']}: {template['description']}",
                     disabled=True,
                     use_container_width=True
                 )
-                st.caption(f"⏳ Coming Soon - Waiting for upload")
+                st.caption("Coming soon...")
     
-    st.divider()
+    st.markdown("")
+    st.markdown("---")
+    st.markdown("")
     
-    st.subheader("📤 Upload Templates (Admin)")
-    st.markdown("""
-    To add templates:
-    1. Prepare your 5 template PDF files
-    2. Upload them below
-    3. They will be available for download immediately
-    """)
+    st.markdown("### Add New Templates")
+    st.markdown("Upload template PDFs to make them available for all users.")
+    
+    st.markdown("")
     
     # Admin section to upload templates
     admin_templates = st.file_uploader(
-        "Upload template PDFs (for admin use)",
+        "Upload template PDFs",
         type="pdf",
         accept_multiple_files=True,
         key="template_uploader"
     )
     
     if admin_templates:
-        st.info(f"📊 {len(admin_templates)} template file(s) ready to upload")
+        st.success(f"✓ {len(admin_templates)} template(s) selected and ready to save")
         
-        if st.button("💾 Save Templates", use_container_width=True, type="primary"):
+        if st.button("Save Templates", use_container_width=True, type="primary"):
             for idx, uploaded_template in enumerate(admin_templates, 1):
                 # Save with standard name
                 template_name = f"template_{idx}.pdf"
@@ -943,68 +1215,3 @@ with tab4:
     4. **Process** and **download** your personalized resume
     """)
 
-# ==================== SIDEBAR HELP ====================
-with st.sidebar:
-    st.header("ℹ️ Help & Info")
-
-    st.subheader("Backend Status")
-    if _api_enabled():
-        try:
-            response = requests.get(f"{API_URL}/health", timeout=2)
-            if response.ok:
-                st.success(f"Connected: {API_URL}")
-            else:
-                st.warning(f"Backend error ({response.status_code}): {API_URL}")
-        except requests.RequestException:
-            st.warning(f"Backend unreachable: {API_URL}")
-    else:
-        st.info("Backend disabled (local processing)")
-    
-    st.markdown("""
-    ### How to Use:
-    
-    1. **Download Templates** 📋
-       - Choose from 5 pre-designed templates
-       - Download the one you like
-    
-    2. **Upload** 📤
-       - Select one or multiple PDF resumes
-       - Supported format: PDF
-    
-    3. **Configure** ⚙️
-       - Customize edits (optional)
-       - Or use pre-configured defaults
-    
-    4. **Process** 🚀
-       - Click "Process Resumes"
-       - Wait for processing to complete
-    
-    5. **Download** 📥
-       - Download edited resumes
-       - One file at a time
-    
-    ### Features:
-    - ✅ 5 ready-to-use templates
-    - ✅ Preserves layout and formatting
-    - ✅ Batch processing support
-    - ✅ Real-time progress tracking
-    
-    ### Tips:
-    - Download a template first
-    - Use high-quality PDFs for best results
-    - Keep file names simple
-    - Edit configuration for custom changes
-    """)
-    
-    st.divider()
-    
-    st.markdown("""
-    ### About
-    **Resume Editor v1.0**
-    
-    Automatically update PDFs while maintaining:
-    - Original fonts
-    - Layout & positioning
-    - Spacing & alignment
-    - Design elements
-    """)
